@@ -551,7 +551,7 @@ module Elasticsearch
 
             begin
               response = Net::HTTP.get(uri)
-              STDERR.puts response.inspect
+              STDERR.puts response.inspect if ENV['DEBUG']
             rescue Exception => e
               STDERR.puts e.inspect if ENV['DEBUG']
               return nil
