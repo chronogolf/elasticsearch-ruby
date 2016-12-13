@@ -494,6 +494,7 @@ module Elasticsearch
             Timeout::timeout(timeout) do
               loop do
                 response = __get_cluster_health(status)
+                STDERR.puts response if ENV['DEBUG']
 
                 if response && response['status'] == status && ( arguments[:number_of_nodes].nil? || arguments[:number_of_nodes].to_i == response['number_of_nodes'].to_i  )
                   break
@@ -551,7 +552,6 @@ module Elasticsearch
 
             begin
               response = Net::HTTP.get(uri)
-              STDERR.puts response.inspect if ENV['DEBUG']
             rescue Exception => e
               STDERR.puts e.inspect if ENV['DEBUG']
               return nil
